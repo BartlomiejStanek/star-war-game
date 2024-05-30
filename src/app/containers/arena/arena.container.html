@@ -1,0 +1,28 @@
+<div class="container">
+  <h1>Play the star war game</h1>
+  <h2>Choose resource to play:</h2>
+  <mat-button-toggle-group [formControl]="resourcesForm" (change)="resourcesChange()" aria-label="Font Style">
+    @for(resource of resources; track resource){
+      <mat-button-toggle data-cy="resource-toogle-button" value="{{resource}}">{{resource | titlecase }}</mat-button-toggle>
+    }
+  </mat-button-toggle-group>
+  <div class="fight-arena">
+    <div>
+      <h3>Player name: {{player1.name}}</h3>
+      <h3>Score: {{player1.score}}</h3>
+      <app-card data-cy="player-card" [person]="player1.person" [starship]="player1.starship" [isLoading]="isLoading"></app-card>
+    </div>
+    <div class="fight-arena__notification">
+      @if (winner){
+        <div data-cy="winner-label">{{winner}}</div>
+      }
+    </div>
+    <div>
+      <h3>Player name: {{player2.name}}</h3>
+      <h3>Score: {{player2.score}}</h3>
+      <app-card [person]="player2.person" [starship]="player2.starship" [isLoading]="isLoading"></app-card>
+    </div>
+  </div>
+  <button mat-raised-button data-cy="draw-players-button" color="primary" class="button" (click)="drawPlayers()" [disabled]="isLoading">Draw players</button>
+  <button mat-raised-button data-cy="play-button" color="primary" (click)="play()" [disabled]="!(player1.starship || player1.person)">Play</button>
+</div>

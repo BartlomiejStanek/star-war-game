@@ -1,29 +1,23 @@
-import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
+import {
+  MockBuilder,
+  MockedComponentFixture,
+  MockRender,
+} from "ng-mocks";
 
 describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppComponent],
-    }).compileComponents();
+  let component: AppComponent;
+  let fixture:  MockedComponentFixture<AppComponent, AppComponent>;
+  beforeEach( async () => {
+    return MockBuilder(AppComponent);
+  });
+
+  beforeEach(() => {
+    fixture = MockRender(AppComponent);
+    component = fixture.point.componentInstance;
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it(`should have the 'star-war-game' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('star-war-game');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, star-war-game');
+    expect(component).toBeTruthy();
   });
 });
